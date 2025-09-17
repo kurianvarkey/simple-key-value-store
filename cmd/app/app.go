@@ -69,9 +69,12 @@ func checkForIntrupt(store store.StoreInterface) {
 func initStore() (store.StoreInterface, error) {
 	store, err := store.NewStore()
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
-	store.Load()
+
+	if err := store.Load(); err != nil {
+		return nil, err
+	}
 
 	return store, nil
 }
