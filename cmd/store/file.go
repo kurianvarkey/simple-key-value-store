@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+var file = "store.json"
+
 type fileStore struct {
 	store map[string]string
 }
@@ -53,8 +55,6 @@ func (s *fileStore) List() (map[string]string, error) {
 
 // save the store to a file
 func (s *fileStore) Save() error {
-	file := "store.json"
-
 	data, err := json.MarshalIndent(s.store, "", "  ")
 	if err != nil {
 		return err
@@ -65,8 +65,6 @@ func (s *fileStore) Save() error {
 
 // load the store from a file
 func (s *fileStore) Load() error {
-	file := "store.json"
-
 	if _, err := os.Stat(file); os.IsNotExist(err) {
 		return nil
 	}
